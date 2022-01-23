@@ -1,0 +1,26 @@
+# https://github.com/bazelbuild/bazel-skylib
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+http_archive(
+    name = "bazel_skylib",
+    urls = [
+        "https://mirror.bazel.build/github.com/bazelbuild/bazel-skylib/releases/download/1.1.1/bazel-skylib-1.1.1.tar.gz",
+        "https://github.com/bazelbuild/bazel-skylib/releases/download/1.1.1/bazel-skylib-1.1.1.tar.gz",
+    ],
+    sha256 = "c6966ec828da198c5d9adbaa94c05e3a1c7f21bd012a0b29ba8ddbccb2c93b0d",
+)
+load("@bazel_skylib//:workspace.bzl", "bazel_skylib_workspace")
+bazel_skylib_workspace()
+
+# https://github.com/bazelbuild/rules_rust
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+http_archive(
+    name = "rules_rust",
+    sha256 = "b284b39cf62ef9584ec7e2a1fdefadbebf5c254ff8f57636d8fd8aa80042d83e",
+    strip_prefix = "rules_rust-77285c1aaebc1c55e6e80acc27be4c54aa30076d",
+    urls = [
+        # main branch as of 2022-01-22
+        "https://github.com/bazelbuild/rules_rust/archive/77285c1aaebc1c55e6e80acc27be4c54aa30076d.tar.gz",
+    ],
+)
+load("@rules_rust//rust:repositories.bzl", "rust_repositories")
+rust_repositories(version = "1.58.1", edition="2021")

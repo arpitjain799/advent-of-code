@@ -1,0 +1,31 @@
+# https://bazelbuild.github.io/rules_rust/defs.html#rust_binary
+load("@rules_rust//rust:defs.bzl", "rust_binary", "rust_library", "rust_test")
+
+filegroup(
+    name = "day_inputs",
+    srcs = glob(["src/**/*.txt"]),
+)
+
+rust_library(
+    name = "advent_of_code",
+    srcs = glob(
+        include = ["src/**/*.rs"],
+        exclude = ["src/main.rs"],
+    ),
+    # compile_data = glob(["src/**/*.txt"]),
+    compile_data = [":day_inputs"],
+)
+
+rust_test(
+    name = "advent_of_code_test",
+    crate = ":advent_of_code",
+    crate_name = "advent_of_code",
+    deps = [":advent_of_code"],
+)
+
+rust_binary(
+    name = "advent-of-code",
+    srcs = ["src/main.rs"],
+    deps = [":advent_of_code"]
+)
+
